@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 
 import com.github.vlastikcz.springrestexample.domain.UserFeedback;
 
+/**
+ * {@link UserFeedbackService} implemented using non-persistent in-memory storage
+ */
 @Service
 public class InMemoryUserFeedbackService implements UserFeedbackService {
     private static final Logger logger = LoggerFactory.getLogger(InMemoryUserFeedbackService.class);

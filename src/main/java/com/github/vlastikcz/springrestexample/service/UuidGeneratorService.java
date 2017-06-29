@@ -2,7 +2,6 @@ package com.github.vlastikcz.springrestexample.service;
 
 import java.util.UUID;
 
-
 /**
  * Service for generating UUIDs
  */
