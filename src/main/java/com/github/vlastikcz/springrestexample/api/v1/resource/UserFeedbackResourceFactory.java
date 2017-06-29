@@ -1,20 +1,25 @@
 package com.github.vlastikcz.springrestexample.api.v1.resource;
 
-import org.springframework.hateoas.Link;
+import java.util.Objects;
 
-import com.github.vlastikcz.springrestexample.api.v1.UserFeedbackController;
 import com.github.vlastikcz.springrestexample.domain.UserFeedback;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-public class UserFeedbackResourceFactory {
+/**
+ * Factory for the {@link UserFeedbackResource}
+ */
+final class UserFeedbackResourceFactory {
+    /**
+     * Create new {@link UserFeedbackResource} from {@link UserFeedback} instance
+     *
+     * @param userFeedback
+     *         {@link UserFeedback} instance to be converted, cannot be null
+     * @return a new {@link UserFeedbackResource}
+     */
     static UserFeedbackResource fromUserFeedback(UserFeedback userFeedback) {
+        Objects.requireNonNull(userFeedback, "'userFeedback' cannot be null");
         final UserFeedbackResource userFeedbackResource = new UserFeedbackResource(
                 userFeedback.getName(), userFeedback.getMessage(), userFeedback.getSubmittedOn()
         );
-        final Link userFeedbackLink = linkTo(methodOn(UserFeedbackController.class).showFeedbackById(userFeedback.getId())).withRel("self");
-        userFeedbackResource.add(userFeedbackLink);
         return userFeedbackResource;
     }
 }

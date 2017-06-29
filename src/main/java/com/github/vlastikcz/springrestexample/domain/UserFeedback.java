@@ -4,6 +4,9 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Core representation of the user feedback
+ */
 public final class UserFeedback {
     private final UUID id;
     private final String name;
@@ -29,22 +32,6 @@ public final class UserFeedback {
         return name.contains(keyword);
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public Instant getSubmittedOn() {
-        return submittedOn;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -67,11 +54,28 @@ public final class UserFeedback {
 
     @Override
     public String toString() {
-        return "SubmittedFeedback{" +
+        return "UserFeedback{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", message='" + message + '\'' +
                 ", submittedOn=" + submittedOn +
                 '}';
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public Instant getSubmittedOn() {
+        return submittedOn;
+    }
+
 }

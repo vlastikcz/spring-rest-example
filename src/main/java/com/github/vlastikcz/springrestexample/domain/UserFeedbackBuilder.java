@@ -3,6 +3,9 @@ package com.github.vlastikcz.springrestexample.domain;
 import java.time.Instant;
 import java.util.UUID;
 
+/**
+ * Builder class for the {@link UserFeedback}
+ */
 public class UserFeedbackBuilder {
     private UUID id;
     private String name;
