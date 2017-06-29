@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +47,7 @@ public class UserFeedbackController {
     }
 
     @PostMapping
-    public ResponseEntity<UserFeedbackResource> createNewFeedback(@RequestBody NewUserFeedback newUserFeedback) {
+    public ResponseEntity<UserFeedbackResource> createNewFeedback(@Valid @RequestBody NewUserFeedback newUserFeedback) {
         logger.info("new feedback submitted [feedback={}]", newUserFeedback);
         final UserFeedback userFeedback = userFeedbackService.save(newUserFeedback.toUserFeedback());
         final UserFeedbackResource userFeedbackResource = userFeedbackResourceAssembler.toResource(userFeedback);

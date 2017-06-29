@@ -2,6 +2,9 @@ package com.github.vlastikcz.springrestexample.api.v1.resource;
 
 import java.util.Objects;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.vlastikcz.springrestexample.domain.UserFeedback;
@@ -11,11 +14,16 @@ import com.github.vlastikcz.springrestexample.domain.UserFeedbackBuilder;
  * Request object for the new {@link UserFeedback} creation
  */
 public final class NewUserFeedback {
+
+    @NotNull
+    @Size(min = 1, max = 256)
     private final String name;
+    @NotNull
+    @Size(min = 1, max = 1024)
     private final String message;
 
     @JsonCreator
-    public NewUserFeedback(@JsonProperty("name") String name, @JsonProperty("message")  String message) {
+    public NewUserFeedback(@JsonProperty("name") String name, @JsonProperty("message") String message) {
         this.name = name;
         this.message = message;
     }
@@ -26,7 +34,6 @@ public final class NewUserFeedback {
                 .setMessage(message)
                 .createUserFeedback();
     }
-
 
     @Override
     public boolean equals(Object o) {
