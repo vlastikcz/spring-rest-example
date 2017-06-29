@@ -18,6 +18,7 @@ public final class NewUserFeedback {
     @NotNull
     @Size(min = 1, max = 256)
     private final String name;
+
     @NotNull
     @Size(min = 1, max = 1024)
     private final String message;

@@ -2,6 +2,7 @@ package com.github.vlastikcz.springrestexample.api.v1;
 
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -126,6 +127,62 @@ public class UserFeedbackControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(header().string(HttpHeaders.LOCATION, userFeedbackResource.getLink(Link.REL_SELF).getHref()))
                 .andExpect(content().json(objectMapper.writeValueAsString(userFeedbackResource)));
+    }
+
+    @Test
+    public void postUserFeedbackWhenNameIsEmptyShouldReturnBadRequest() throws Exception {
+        final NewUserFeedback newUserFeedback = new NewUserFeedback("", "message");
+        final String request = objectMapper.writeValueAsString(newUserFeedback);
+
+        mockMvc.perform(post(USER_FEEDBACK_CONTROLLER_PATH).contentType(MediaTypes.HAL_JSON).accept(MediaTypes.HAL_JSON).content(request))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void postUserFeedbackWhenNameIsNullShouldReturnBadRequest() throws Exception {
+        final NewUserFeedback newUserFeedback = new NewUserFeedback(null, "message");
+        final String request = objectMapper.writeValueAsString(newUserFeedback);
+
+        mockMvc.perform(post(USER_FEEDBACK_CONTROLLER_PATH).contentType(MediaTypes.HAL_JSON).accept(MediaTypes.HAL_JSON).content(request))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void postUserFeedbackWhenNameIsTooLongShouldReturnBadRequest() throws Exception {
+        final int length = 513;
+        final NewUserFeedback newUserFeedback = new NewUserFeedback(String.join("", Collections.nCopies(length, "x")), "message");
+        final String request = objectMapper.writeValueAsString(newUserFeedback);
+
+        mockMvc.perform(post(USER_FEEDBACK_CONTROLLER_PATH).contentType(MediaTypes.HAL_JSON).accept(MediaTypes.HAL_JSON).content(request))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void postUserFeedbackWhenMessageIsEmptyShouldReturnBadRequest() throws Exception {
+        final NewUserFeedback newUserFeedback = new NewUserFeedback("name", "");
+        final String request = objectMapper.writeValueAsString(newUserFeedback);
+
+        mockMvc.perform(post(USER_FEEDBACK_CONTROLLER_PATH).contentType(MediaTypes.HAL_JSON).accept(MediaTypes.HAL_JSON).content(request))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void postUserFeedbackWhenMessageIsNullShouldReturnBadRequest() throws Exception {
+        final NewUserFeedback newUserFeedback = new NewUserFeedback("name", null);
+        final String request = objectMapper.writeValueAsString(newUserFeedback);
+
+        mockMvc.perform(post(USER_FEEDBACK_CONTROLLER_PATH).contentType(MediaTypes.HAL_JSON).accept(MediaTypes.HAL_JSON).content(request))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void postUserFeedbackWhenMessageIsTooLongShouldReturnBadRequest() throws Exception {
+        final int length = 1025;
+        final NewUserFeedback newUserFeedback = new NewUserFeedback(String.join("", Collections.nCopies(length, "y")), "message");
+        final String request = objectMapper.writeValueAsString(newUserFeedback);
+
+        mockMvc.perform(post(USER_FEEDBACK_CONTROLLER_PATH).contentType(MediaTypes.HAL_JSON).accept(MediaTypes.HAL_JSON).content(request))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
