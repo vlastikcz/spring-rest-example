@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 public class InMemoryUserFeedbackServiceTest {
+    private static final String MESSAGE = "MESSAGE";
     private static final String NAME = "NAME";
     private static final String OTHER_NAME = "OTHER_NAME";
     private static final String UNKNOWN_NAME = "UNKNOWN_NAME";
@@ -28,6 +29,7 @@ public class InMemoryUserFeedbackServiceTest {
     private static final Clock otherClock = Clock.fixed(Instant.MIN, ZoneId.of("CET"));
 
     private final UuidGeneratorService uuidGeneratorService = () -> RANDOM_UUID;
+
     private InMemoryUserFeedbackService service;
 
     @Before
@@ -144,7 +146,7 @@ public class InMemoryUserFeedbackServiceTest {
         return new UserFeedbackBuilder()
                 .setId(uuid)
                 .setName(name)
-                .setMessage("message 1")
+                .setMessage(MESSAGE)
                 .setSubmittedOn(submittedOn)
                 .createUserFeedback();
     }
