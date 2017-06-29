@@ -4,6 +4,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -73,7 +74,15 @@ public class InMemoryUserFeedbackServiceTest {
     }
 
     @Test
-    public void findByNameWhenSomeMameMatchesShouldReturnOnlyMatchingUserFeedback() throws Exception {
+    public void findByNameWhenSomeMameMatchesFoundShouldReturnMatchingUserFeedback() throws Exception {
+        final UserFeedback userFeedback = userFeedback();
+        final Iterable<UserFeedback> expected = Collections.singletonList(service.save(userFeedback));
+        final Iterable<UserFeedback> actual = service.findByNameContainsCaseInsensitive(NAME.toLowerCase());
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void findByNameWhenCaseInsensitiveMatchesFoundShouldReturnOnlyMatchingUserFeedback() throws Exception {
         final UserFeedback firstUserFeedback = userFeedback();
         final UserFeedback otherUserFeedback = userFeedback(OTHER_RANDOM_UUID, Instant.now(otherClock), OTHER_NAME);
 
@@ -82,7 +91,7 @@ public class InMemoryUserFeedbackServiceTest {
                 service.save(firstUserFeedback),
                 service.save(otherUserFeedback)
         );
-        final Iterable<UserFeedback> actual = service.findByName(NAME);
+        final Iterable<UserFeedback> actual = service.findByNameContainsCaseInsensitive(NAME);
         assertThat(actual).isEqualTo(expected);
     }
 
@@ -93,13 +102,13 @@ public class InMemoryUserFeedbackServiceTest {
 
         service.save(firstUserFeedback);
         service.save(otherUserFeedback);
-        final Iterable<UserFeedback> actual = service.findByName(UNKNOWN_NAME);
+        final Iterable<UserFeedback> actual = service.findByNameContainsCaseInsensitive(UNKNOWN_NAME);
         assertThat(actual).isEmpty();
     }
 
     @Test(expected = NullPointerException.class)
     public void findByNameWhenNullProvidedShouldThrowNullPointerException() throws Exception {
-        service.findByName(null);
+        service.findByNameContainsCaseInsensitive(null);
     }
 
     @Test

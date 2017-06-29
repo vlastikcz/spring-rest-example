@@ -95,7 +95,7 @@ public class UserFeedbackControllerTest {
     @Test
     public void getUserFeedbackByNameWhenSomeItemsFoundShouldReturnMatchingUserFeedbackResources() throws Exception {
         final List<UserFeedbackResource> userFeedbackResources = USER_FEEDBACK_LIST.stream().map(f -> convertToResourceFake(f)).collect(toList());
-        when(userFeedbackService.findByName(USER_FEEDBACK_KEYWORD)).thenReturn(USER_FEEDBACK_LIST);
+        when(userFeedbackService.findByNameContainsCaseInsensitive(USER_FEEDBACK_KEYWORD)).thenReturn(USER_FEEDBACK_LIST);
         when(userFeedbackResourceAssembler.toResources(USER_FEEDBACK_LIST)).thenReturn(userFeedbackResources);
         final RequestBuilder requestBuilder = get(USER_FEEDBACK_CONTROLLER_PATH)
                 .param(UserFeedbackController.LIST_FEEDBACK_BY_NAME_PARAM, USER_FEEDBACK_KEYWORD)

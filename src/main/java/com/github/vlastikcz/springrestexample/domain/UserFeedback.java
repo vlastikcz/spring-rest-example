@@ -20,16 +20,17 @@ public final class UserFeedback {
         this.submittedOn = submittedOn;
     }
 
+    /**
+     * Convert {@link UserFeedback} to a new {@link UserFeedbackBuilder}
+     *
+     * @return new builder with populated fields based on the original entity
+     */
     public UserFeedbackBuilder toUserFeedbackBuilder() {
         return new UserFeedbackBuilder()
                 .setId(this.id)
                 .setName(this.name)
                 .setMessage(this.message)
                 .setSubmittedOn(this.submittedOn);
-    }
-
-    public boolean nameMatches(String keyword) {
-        return name.contains(keyword);
     }
 
     @Override

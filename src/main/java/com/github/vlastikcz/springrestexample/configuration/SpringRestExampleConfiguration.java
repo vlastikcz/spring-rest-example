@@ -1,4 +1,4 @@
-package com.github.vlastikcz.springrestexample;
+package com.github.vlastikcz.springrestexample.configuration;
 
 import java.time.Clock;
 

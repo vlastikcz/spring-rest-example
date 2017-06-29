@@ -29,9 +29,7 @@ public interface UserFeedbackService {
     Iterable<UserFeedback> findAll();
 
     /**
-     * Find all existing {@link UserFeedback} items with matching {@link UserFeedback#getName()}.
-     * <p>
-     * Returned entities are filtered with a {@link UserFeedback#nameMatches(String)} method.
+     * Find all existing {@link UserFeedback} items by name (contains-type match).
      *
      * @param name
      *         requested name, cannot be {@code null}
@@ -39,7 +37,7 @@ public interface UserFeedbackService {
      * @throws NullPointerException
      *         if any of the required parameters is {@code null}
      */
-    Iterable<UserFeedback> findByName(String name);
+    Iterable<UserFeedback> findByNameContainsCaseInsensitive(String name);
 
     /**
      * Find single {@link UserFeedback} by it's ID

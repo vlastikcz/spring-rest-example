@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -49,11 +50,17 @@ public class InMemoryUserFeedbackService implements UserFeedbackService {
     }
 
     @Override
-    public Iterable<UserFeedback> findByName(String name) {
+    public Iterable<UserFeedback> findByNameContainsCaseInsensitive(String name) {
         Objects.requireNonNull(name, "'name' cannot be null");
-        final List<UserFeedback> result = userFeedbackList.stream().filter(f -> f.nameMatches(name)).collect(Collectors.toList());
+        final Predicate<UserFeedback> filterByName = filterByNameContainsCaseInsensitive(name);
+        final List<UserFeedback> result = userFeedbackList.stream().filter(f -> filterByName.test(f)).collect(Collectors.toList());
         logger.info("find by name result: {} items", result.size());
         return result;
+    }
+
+    private static Predicate<UserFeedback> filterByNameContainsCaseInsensitive(String name) {
+        final String nameLowerCase = name.toLowerCase();
+        return (userFeedback) -> userFeedback.getName().toLowerCase().contains(nameLowerCase);
     }
 
     @Override

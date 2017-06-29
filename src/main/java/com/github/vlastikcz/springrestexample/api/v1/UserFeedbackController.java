@@ -66,7 +66,7 @@ public class UserFeedbackController {
     @GetMapping(params = LIST_FEEDBACK_BY_NAME_PARAM)
     public ResponseEntity<List<UserFeedbackResource>> listFeedbackByName(@RequestParam(name = LIST_FEEDBACK_BY_NAME_PARAM) String name) {
         logger.info("listing feedback items by [name={}]", name);
-        final Iterable<UserFeedback> userFeedbackItems = userFeedbackService.findByName(name);
+        final Iterable<UserFeedback> userFeedbackItems = userFeedbackService.findByNameContainsCaseInsensitive(name);
         final List<UserFeedbackResource> userFeedbackResources = userFeedbackResourceAssembler.toResources(userFeedbackItems);
         return ResponseEntity.ok(userFeedbackResources);
     }
