@@ -36,9 +36,7 @@ public class UserFeedbackResourceAssemblerTest {
     @Test
     public void toResourceShouldConvertToUserFeedbackResource() throws Exception {
         final UserFeedback userFeedback = userFeedback();
-
-        final UserFeedbackResource userFeedbackResource = new UserFeedbackResource(USER_FEEDBACK_NAME, USER_FEEDBACK_MESSAGE, USER_FEEDBACK_SUBMITTED_ON);
-        when(entityLinks.linkToSingleResource(userFeedbackResource)).thenReturn(USER_FEEDBACK_LINK);
+        when(entityLinks.linkToSingleResource(UserFeedbackResource.class, userFeedback.getId())).thenReturn(USER_FEEDBACK_LINK);
 
         final UserFeedbackResource actual = userFeedbackResourceAssembler.toResource(userFeedback);
         final UserFeedbackResource expected = new UserFeedbackResource(USER_FEEDBACK_NAME, USER_FEEDBACK_MESSAGE, USER_FEEDBACK_SUBMITTED_ON);
