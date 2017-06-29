@@ -3,14 +3,8 @@ package com.github.vlastikcz.springrestexample.api.v1.resource;
 import java.time.Instant;
 import java.util.UUID;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.hateoas.Link;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.github.vlastikcz.springrestexample.api.v1.UserFeedbackController;
 import com.github.vlastikcz.springrestexample.domain.UserFeedback;
 import com.github.vlastikcz.springrestexample.domain.UserFeedbackBuilder;
 
